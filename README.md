@@ -1,16 +1,15 @@
-# React + Vite
+# Proyecto de Consumo de API con Node.js + Diseño en REACT
+En este proyecto he utilizado una API REST en `Node.js` (puerto 3000) y el cliente `React` con Vite (puerto 5173), que muestra los alumnos (usuarios) de una clase al hacer click sobre el botón "Mostrar Usuarios".
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+En la **estructura** del proyecto he aplicado una división por componentes, aislando cada funcionalidad en una clase:
+- `Boton.jsx`: dedicado a la lógica del botón: Cuando se hace click en el botón "Mostrar Usuarios", se ejecuta la función `cargarUsuarios()` 
+- `Cargar.jsx`: realiza las funciones de consulta a la API mediante la función `cargarUsuarios()` y guarda los resultados JSON en una lista mediante la función `setUsuarios()`
+- `Lista.jsx`: recorre los elementos de la lista anterior con `.map()` y devuelve un `<li>` por usuario.
+- `App.jsx`: es la página principal que llama a la lógica anterior.
 
-Currently, two official plugins are available:
+Para el **diseño**, he empleado funcionalidades de CSS que permiten mejorar la experiencia del usuario, como las transiciones de los componentes al pasar el ratón por encima (el color del botón se vuelve más clarito, mientras que los elementos de la lista, además de lo anterior, aumentan su tamaño) y los efectos al hacer click sobre un elemento (el color del botón se vuelve más oscuro, y disminuye su tamaño para crear sensación de hundimiento)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Para **ejecutar el proyecto**, primero debemos arrancar la API en el servidor local (terminal: `node api.js`), y luego debemos cargar el proyecto, también en un servidor local (terminal: `npm run dev`)
 
-## React Compiler
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+**¿Qué es CORS?**: CORS es una política del navegador que bloquea respuestas de otro origen (protocolo, dominio o puerto). El cliente (:5173) y la API (:3000) tienen puertos distintos, así que la API debe enviar Access-Control-Allow-Origin para ese origen, lo que se hace con app.use(cors({ origin: 'http://localhost:5173' })).
